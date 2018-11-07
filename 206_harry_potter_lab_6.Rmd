@@ -19,3 +19,21 @@ hp_data <- read_csv("harry_potter_aggression_full.csv")
 ```
 
 I'm in Lab Week 6!
+
+2. Basic wrangling and make a graph of Harry Potter and Draco Malfoy aggression rates
+
+```{r}
+
+hp_graph <- hp_data %>% 
+  filter(Name== "Harry" | Name == "Draco Malfoy") %>% 
+  select(Name, book, agg.per.mention) %>% 
+  ggplot(aes(x = book, y = agg.per.mention)) +  #switched to plus operator because we're now in ggplot
+  geom_col(aes(fill=Name), position="dodge")+#default for geom_col when you have multiple groups (i.e. Harry and Draco Malfoy), is to create a stacked column graph -- Harry is the lower section, Draco is the upper section -- need to change fill color to character name. However, stacked column graphs can be confusing. Instead, use a cluster column graph to put the categories next to each other (position=dodge). If there is a non-result for one of the levels (categories/characters) it will make the remaining level the whole width 
+  coord_flip()+ #flips x and y axes
+  theme_bw()
+
+hp_graph
+  
+  
+```
+
